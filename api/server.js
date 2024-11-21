@@ -1,11 +1,13 @@
 import express from 'express'
 import fetch from 'node-fetch'
 import sqlite3 from 'sqlite3'
+import { config } from './env.js' // Importer le fichier de configuration
 
 sqlite3.verbose()
 
 const app = express()
 const PORT = 3000
+const apiKey = config.VUE_APP_YOUTUBE_API_KEY // Utiliser la clé API à partir du fichier de configuration
 
 // Initialise la base de données SQLite
 const db = new sqlite3.Database(':memory:')
@@ -23,7 +25,7 @@ db.serialize(() => {
 
 // Fonction pour récupérer des vidéos depuis l'API YouTube
 async function fetchYoutubeVideos() {
-  const API_KEY = 'AIzaSyD39fMiy_ZfRTceco5DcZw-7njx7nVVKO0'
+  const API_KEY = apiKey
   const QUERY = 'Léon Marchand'
   const MAX_RESULTS = 3
   const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${MAX_RESULTS}&q=${encodeURIComponent(

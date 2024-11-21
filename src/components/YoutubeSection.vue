@@ -3,8 +3,8 @@
     <div v-if="videos.length > 0" class="flex justify-center items-center flex-wrap gap-4 p-4">
       <div v-for="video in videos" :key="video.id.videoId" class="youtube-video">
         <iframe
-          width="560"
-          height="315"
+          width="470"
+          height="250"
           :src="'https://www.youtube.com/embed/' + video.id.videoId"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
