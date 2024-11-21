@@ -24,11 +24,11 @@ db.serialize(() => {
 // Fonction pour récupérer des vidéos depuis l'API YouTube
 async function fetchYoutubeVideos() {
   const API_KEY = 'AIzaSyD39fMiy_ZfRTceco5DcZw-7njx7nVVKO0'
-  const QUERY = 'Léo Marchand'
+  const QUERY = 'Léon Marchand'
   const MAX_RESULTS = 3
   const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${MAX_RESULTS}&q=${encodeURIComponent(
     QUERY,
-  )}&type=video&key=${API_KEY}`
+  )}&type=video&order=date&key=${API_KEY}`
 
   try {
     const response = await fetch(URL)
