@@ -2,7 +2,6 @@
   <div>
     <div v-if="videos.length > 0" class="flex justify-center items-center flex-wrap gap-4 p-4">
       <div v-for="video in videos" :key="video.id.videoId" class="youtube-video">
-        <!-- Embed the YouTube video using iframe -->
         <iframe
           width="560"
           height="315"

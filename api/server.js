@@ -8,7 +8,7 @@ const app = express()
 const PORT = 3000
 
 // Initialise la base de données SQLite
-const db = new sqlite3.Database(':memory:') // Utilisez un fichier pour persister les données si nécessaire
+const db = new sqlite3.Database(':memory:')
 
 // Créez une table pour stocker les vidéos et l'heure de mise en cache
 db.serialize(() => {
@@ -23,7 +23,7 @@ db.serialize(() => {
 
 // Fonction pour récupérer des vidéos depuis l'API YouTube
 async function fetchYoutubeVideos() {
-  const API_KEY = 'AIzaSyD39fMiy_ZfRTceco5DcZw-7njx7nVVKO0' // Remplacez par votre clé API
+  const API_KEY = 'AIzaSyD39fMiy_ZfRTceco5DcZw-7njx7nVVKO0'
   const QUERY = 'Léo Marchand'
   const MAX_RESULTS = 3
   const URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${MAX_RESULTS}&q=${encodeURIComponent(
