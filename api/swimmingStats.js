@@ -5,7 +5,7 @@ import * as cheerio from 'cheerio'
 const router = express.Router()
 
 // URL de la page à scrapper
-const targetUrl = 'https://www.swimcloud.com/swimmer/1283295/' // Remplace par l'URL de la page
+const targetUrl = 'https://www.swimcloud.com/swimmer/1283295/'
 
 // Route pour récupérer les statistiques de natation en temps réel
 router.get('/stats', async (req, res) => {
