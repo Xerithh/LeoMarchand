@@ -1,14 +1,19 @@
 <template>
-  <section class="projects py-16 px-8 bg-white" ref="projectsSection">
+  <section
+    class="projects w-full flex justify-center items-center flex-col py-16 px-8 bg-white"
+    ref="projectsSection"
+  >
     <h2 class="text-3xl font-bold text-center mb-6">Réalisations</h2>
-    <div v-if="projects.length === 0" class="text-center text-gray-500">
-      Chargement des statistiques...
-    </div>
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      v-if="projects.length === 0"
+      class="w-10 h-10 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin"
+    ></div>
+
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
       <div
         v-for="(project, index) in displayedProjects"
         :key="index"
-        class="project bg-gray-100 p-4 rounded"
+        class="project bg-gray-100 p-4 rounded w-full"
       >
         <h3 class="text-xl font-bold mb-2">{{ project.event }}</h3>
         <p class="text-gray-700 mb-2"><strong>Temps :</strong> {{ project.time }}</p>

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="w-full flex justify-center items-center flex-col">
+    <h2 class="text-3xl font-bold mb-6">Dernières Vidéos</h2>
     <div v-if="videos.length > 0" class="flex justify-center items-center flex-wrap gap-4 p-4">
       <div v-for="video in videos" :key="video.id.videoId" class="youtube-video">
         <iframe
@@ -13,7 +14,10 @@
         ></iframe>
       </div>
     </div>
-    <p v-else>Chargement des vidéos...</p>
+    <p
+      v-else
+      class="w-10 h-10 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin m-5"
+    ></p>
   </div>
 </template>
 
