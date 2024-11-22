@@ -1,6 +1,12 @@
 # LeoMarchand
 
-This template should help get you started developing with Vue 3 in Vite.
+## Configuration des clés API
+
+1. Créez un fichier `.env` à la racine du projet (copiez `.env.example` comme modèle).
+2. Ajoutez vos clés API dans ce fichier. Par exemple :
+
+   ```env
+   VUE_APP_YOUTUBE_API_KEY=VotreCléAPI
 
 ## Recommended IDE Setup
 
