@@ -1,0 +1,24 @@
+/* eslint-disable func-names */
+
+$(".js-expandable-trigger").on("click", function(e) {
+    e.preventDefault();
+    $(this).trigger("blur");
+
+    const target = $(this).closest(".js-expandable");
+    const activeClassName = "c-expandable--active";
+    const isExpanded = target.hasClass("c-expandable--active");
+
+    if (isExpanded) {
+        target.removeClass(activeClassName);
+        $("html, body").animate(
+            {
+                scrollTop: target.offset().top - 80,
+            },
+            200,
+        );
+        $(this).text("Show more");
+    } else {
+        target.addClass(activeClassName);
+        $(this).text("Show less");
+    }
+});

@@ -3,6 +3,8 @@ import fetch from 'node-fetch'
 import sqlite3 from 'sqlite3'
 import { config } from './env.js' // Importer le fichier de configuration
 
+import swimmingStatsRoute from './swimmingStats.js'
+
 sqlite3.verbose()
 
 const app = express()
@@ -84,6 +86,8 @@ app.get('/api/videos', async (req, res) => {
     }
   })
 })
+
+app.use('/api/swimming-stats', swimmingStatsRoute)
 
 // Lancez le serveur
 app.listen(PORT, () => {

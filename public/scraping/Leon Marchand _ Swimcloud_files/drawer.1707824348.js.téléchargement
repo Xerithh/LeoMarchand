@@ -1,0 +1,32 @@
+window.addEventListener("DOMContentLoaded", () => {
+    const $drawerDesktop = $(".js-sc-drawer-desktop");
+
+    function handleCookie() {
+        if ($drawerDesktop.hasClass("is-hidden")) {
+            Cookies.set("drawer", "is-hidden", { expires: 30 });
+        } else {
+            Cookies.remove("drawer");
+        }
+    }
+
+    $(".js-sc-drawer-desktop-toggle").on("click touchstart", e => {
+        e.preventDefault();
+        $drawerDesktop.toggleClass("is-hidden");
+        handleCookie();
+
+        const athleteRecruitToolbar = $(".js-recruit-toolbar");
+
+        if (athleteRecruitToolbar.length > 0) {
+            athleteRecruitToolbar.toggleClass("u-is-hidden");
+        }
+    });
+
+    const drawerMobileActions =
+        ".js-sc-drawer-mobile-toggle, .js-sc-drawer-mobile-close, .js-sc-drawer-mobile-backdrop";
+
+    $(drawerMobileActions).on("click touchstart", e => {
+        e.preventDefault();
+        $(".js-html").toggleClass("u-overflow-hidden");
+        $(".js-sc-drawer-mobile, .js-sc-drawer-mobile-backdrop").toggleClass("is-open");
+    });
+});

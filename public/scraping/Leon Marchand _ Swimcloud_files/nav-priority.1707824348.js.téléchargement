@@ -1,0 +1,92 @@
+function initPriorityNav() {
+    const navContainer = document.querySelector(".js-nav-priority");
+
+    if (!navContainer) return;
+
+    const navigation = navContainer.firstElementChild;
+
+    if (!navigation) return;
+
+    const visibilityMap = new Map();
+    let shouldShowMoreButton = false;
+
+    navigation.classList.add("u-overflow-hidden");
+    const dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "dropdown c-nav c-nav--inline u-is-hidden";
+
+    const dropdownMenu = document.createElement("div");
+    dropdownMenu.className =
+        "dropdown-menu dropdown-menu-priority dropdown-menu-right";
+
+    navContainer.classList.add("u-flex");
+    navContainer.appendChild(dropdownContainer);
+
+    function createDropDownButton() {
+        const button = document.createElement("button");
+        button.className = "c-nav__item dropdown-toggle";
+        button.innerHTML = "More <span class='caret u-color-mute'></span>";
+        button.setAttribute("data-toggle", "dropdown");
+        button.type = "button";
+        return button;
+    }
+
+    dropdownContainer.appendChild(createDropDownButton());
+    dropdownContainer.appendChild(dropdownMenu);
+
+    // generate data attrs
+    Array.from(navigation.children).forEach((item) => {
+        item.setAttribute("data-targetid", item.innerText);
+        item.setAttribute("data-href", item.href);
+    });
+
+    function handleIntersection(entries) {
+        entries.reverse().forEach((entry) => {
+            const { target } = entry;
+            const { targetid, href } = target.dataset;
+            const visibilityMapKey = href === "undefined" ? targetid : href;
+
+            if (entry.isIntersecting) {
+                visibilityMap.set(visibilityMapKey, true);
+                target.style.opacity = 1;
+                target.style.pointerEvents = "auto";
+            } else {
+                visibilityMap.set(visibilityMapKey, false);
+                const clonedTarget = target.cloneNode(true);
+                target.style.opacity = 0;
+                target.style.pointerEvents = "none";
+                dropdownMenu.prepend(clonedTarget);
+            }
+        });
+
+        shouldShowMoreButton = Array.from(visibilityMap.values()).some(
+            (value) => !value,
+        );
+        dropdownContainer.classList.toggle(
+            "u-is-hidden",
+            !shouldShowMoreButton,
+        );
+
+        Array.from(dropdownMenu.children).forEach((item) => {
+            const targetVisibilityMapKey =
+                item.href || item.getAttribute("data-targetid");
+            const isVisible = visibilityMap.get(targetVisibilityMapKey);
+            if (isVisible) {
+                dropdownMenu.removeChild(item);
+            }
+        });
+    }
+
+    const observer = new IntersectionObserver(handleIntersection, {
+        root: navContainer,
+        rootMargin: "0px -84px 0px 0px",
+        threshold: 0.95,
+    });
+
+    Array.from(navigation.children).forEach((item) => {
+        if (item.dataset.targetid) {
+            observer.observe(item);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", initPriorityNav);
