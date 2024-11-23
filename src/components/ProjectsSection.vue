@@ -1,6 +1,6 @@
 <template>
   <section
-    class="skills w-full flex justify-center items-center flex-col py-20 px-12"
+    class="skills w-full flex justify-center items-center flex-col py-20 px-8"
     ref="skillsSection"
   >
     <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Réalisations</h2>

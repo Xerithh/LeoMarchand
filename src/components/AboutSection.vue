@@ -37,11 +37,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-@media (max-width: 768px) {
-  .about {
-    padding: 2rem 1rem;
-  }
-}
-</style>

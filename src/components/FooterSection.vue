@@ -1,8 +1,12 @@
 <template>
   <footer class="bg-gray-900 text-white py-8">
-    <div class="container w-full flex justify-center gap-48 py-4">
+    <div
+      class="container w-full flex flex-col md:flex-row flex-wrap justify-start lg:justify-center gap-x-12 md:gap-x-48 gap-y-12 md:gap-y-24 py-4 pl-12 lg:pl-0"
+    >
       <!-- Section À propos -->
-      <div class="flex flex-col items-center md:items-start text-center md:text-left max-w-xs">
+      <div
+        class="footer-about flex flex-col items-center md:items-start text-center md:text-left max-w-xs"
+      >
         <h3 class="text-xl font-bold mb-4">À propos</h3>
         <p class="text-gray-400 mb-4">
           Ce site présente les réalisations et les actualités de Léo Marchand. Retrouvez ses
@@ -12,9 +16,9 @@
       </div>
 
       <!-- Section Navigation -->
-      <div class="flex flex-col items-center md:items-start text-center md:text-left">
+      <div class="footer-nav flex flex-col items-center md:items-start text-center md:text-left">
         <h3 class="text-xl font-bold mb-4">Navigation</h3>
-        <ul class="space-y-2">
+        <ul class="space-y-2 md:pl-0">
           <li><a href="#realisations" class="hover:text-blue-400">Réalisations</a></li>
           <li><a href="#videos" class="hover:text-blue-400">Vidéos</a></li>
           <li><a href="#contact" class="hover:text-blue-400">Contact</a></li>
@@ -22,7 +26,9 @@
       </div>
 
       <!-- Section Contact -->
-      <div class="flex flex-col items-center md:items-start text-center md:text-left">
+      <div
+        class="footer-contact flex flex-col items-center md:items-start text-center md:text-left"
+      >
         <h3 class="text-xl font-bold mb-4">Contact</h3>
         <ul class="space-y-2">
           <li>
@@ -83,5 +89,15 @@ export default {
 <style scoped>
 footer a {
   transition: color 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-about,
+  .footer-nav,
+  .footer-contact {
+    align-items: flex-start;
+    text-align: left;
+  }
 }
 </style>

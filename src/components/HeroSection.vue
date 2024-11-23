@@ -1,12 +1,14 @@
 <template>
   <section
-    class="hero h-screen bg-cover bg-center flex items-center px-4"
+    class="hero h-screen bg-cover bg-center flex items-center px-8"
     style="background-image: url('/background_hero.jpg')"
   >
-    <div class="text-white mx-16 space-y-8">
-      <h1 class="text-6xl font-extrabold drop-shadow-xl">Léon Marchand</h1>
-      <p class="text-2xl italic">Explorez mes réalisations, performances et projets inspirants.</p>
-      <div class="flex flex-col sm:flex-row gap-6">
+    <div class="text-white md:mx-4 sm:mx-16 space-y-8">
+      <h1 class="text-4xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left">Léon Marchand</h1>
+      <p class="w-2/3 md:w-full text-lg md:text-xl sm:text-2xl italic sm:text-left">
+        Explorez mes réalisations, performances et projets inspirants.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center sm:justify-start">
         <button
           class="duration-300 relative group cursor-pointer text-sky-50 overflow-hidden h-12 w-64 rounded-md bg-sky-200 p-2 flex justify-center items-center font-extrabold"
         >
