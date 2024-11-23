@@ -18,13 +18,14 @@ router.get('/stats', async (req, res) => {
 
     // Extraction des données
     const stats = []
-    $('.c-table-clean tr').each((index, element) => {
+    $('#js-swimmer-profile-times tr').each((index, element) => {
       const event = $(element).find('td:nth-child(1)').text().trim()
       const time = $(element).find('td:nth-child(2)').text().trim()
-      const date = $(element).find('td:nth-child(3)').text().trim()
+      const date = $(element).find('td:nth-child(5)').text().trim()
+      const competitionUrl = $(element).find('td:nth-child(4) a').attr('href')
 
       if (event && time && date) {
-        stats.push({ event, time, date })
+        stats.push({ event, time, date, competitionUrl })
       }
     })
 

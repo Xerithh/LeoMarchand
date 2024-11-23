@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-center items-center flex-col">
+  <div class="w-full flex justify-center items-center flex-col bg-gray-100 py-20">
     <h2 class="text-3xl font-bold mb-6">Dernières Vidéos</h2>
     <div v-if="videos.length > 0" class="flex justify-center items-center flex-wrap gap-4 p-4">
       <div v-for="video in videos" :key="video.id.videoId" class="youtube-video">
@@ -14,16 +14,20 @@
         ></iframe>
       </div>
     </div>
-    <p
-      v-else
-      class="w-10 h-10 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin m-5"
-    ></p>
+    <div v-else>
+      <LoaderComponent />
+    </div>
   </div>
 </template>
 
 <script>
+import LoaderComponent from './ui/LoaderComponent.vue'
+
 export default {
   name: 'YoutubeSection',
+  components: {
+    LoaderComponent,
+  },
   data() {
     return {
       videos: [], // Tableau pour stocker les vidéos récupérées
