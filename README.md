@@ -42,7 +42,7 @@ Installation des dépendances : Après avoir cloné le projet, exécutez :
    ```
 
 ## Contributions
-Merci de toujours créer une nouvelle branche pour vos modifications et de la fusionner via une pull request. Utilisez des noms de branche explicites, comme scraping ou fix/api-endpoint.
+Merci de toujours créer une nouvelle branche pour vos modifications et de la fusionner via une pull request. Utilisez des noms de branche explicites, comme `scraping` ou `fix/api-endpoint`.
 
 ## Recommended IDE Setup
 
