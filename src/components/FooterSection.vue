@@ -8,12 +8,7 @@
           Ce site présente les réalisations et les actualités de Léo Marchand. Retrouvez ses
           performances, vidéos et autres projets inspirants.
         </p>
-        <a
-          href="#contact"
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
-        >
-          Me Contacter
-        </a>
+        <ActionButton text="Me Contacter" href="/contact" />
       </div>
 
       <!-- Section Navigation -->
@@ -75,8 +70,13 @@
 </template>
 
 <script>
+import ActionButton from './ui/ActionButton.vue'
+
 export default {
   name: 'FooterSection',
+  components: {
+    ActionButton,
+  },
 }
 </script>
 

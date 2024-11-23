@@ -5,10 +5,12 @@
   >
     <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Réalisations</h2>
 
-    <div v-if="projects.length === 0" class="w-full flex justify-center">
+    <!-- Loader -->
+    <div v-if="projects.length === 0 && isLoading" class="w-full flex justify-center">
       <LoaderComponent />
     </div>
 
+    <!-- Projets affichés -->
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full">
       <div
         v-for="(project, index) in displayedProjects"
@@ -16,11 +18,11 @@
         :style="{
           backgroundImage: `url('/skills/background_skills_${(index % 6) + 1}.jpg')`,
         }"
-        class="skill-card bg-cover bg-center rounded-lg shadow-lg relative p-8 pb-5 text-white flex flex-col justify-between h-64"
+        class="skill-card bg-cover bg-center rounded-lg shadow-lg relative p-8 pb-5 text-white flex flex-col justify-between h-72"
       >
         <!-- Lien vers la page de la compétition -->
         <a
-          :href="'https://www.swimcloud.com/' + project.competitionUrl"
+          :href="project.competitionUrl"
           target="_blank"
           class="w-full h-full absolute top-0 left-0 z-10"
         ></a>
@@ -30,9 +32,12 @@
 
         <!-- Informations -->
         <div class="info-box space-y-2">
+          <!-- Position -->
+          <MedalPosition :position="project.position" />
+
           <!-- Temps -->
           <div
-            class="flex items-center gap-3 bg-yellow-400 text-black font-medium rounded px-2 py-1 w-fit"
+            class="flex items-center gap-3 bg-white text-gray-800 font-medium rounded px-2 py-1 w-fit"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,80 +74,90 @@
       </div>
     </div>
 
-    <!-- Boutons pour afficher plus ou moins -->
-    <div v-if="hasMoreProjects" class="text-center mt-10">
-      <button
-        @click="loadMore"
-        class="bg-blue-500 text-white py-3 px-8 rounded hover:bg-blue-600 transition"
-      >
-        Afficher plus
-      </button>
+    <!-- Boutons d'action -->
+    <div class="text-center mt-10 space-y-6">
+      <div v-if="hasMoreProjects && !isLoading">
+        <ActionButton text="Afficher plus" :onClick="loadMore" />
+      </div>
+      <div v-if="displayedProjects.length > limit && !isLoading">
+        <ActionButton text="Afficher moins" :onClick="showLess" customClass="scale-90 bg-sky-950" />
+      </div>
     </div>
-    <div v-if="displayedProjects.length > 6" class="text-center mt-6">
-      <button
-        @click="showLess"
-        class="bg-gray-500 text-white py-3 px-8 rounded hover:bg-gray-600 transition"
-      >
-        Voir moins
-      </button>
+
+    <!-- Loader pendant le chargement -->
+    <div v-if="(projects.length !== 0) & isLoading" class="text-center mt-10">
+      <LoaderComponent />
     </div>
   </section>
 </template>
 
 <script>
+import MedalPosition from './MedalPosition.vue'
 import LoaderComponent from './ui/LoaderComponent.vue'
+import ActionButton from './ui/ActionButton.vue'
 
 export default {
   name: 'SkillsSection',
   components: {
     LoaderComponent,
+    MedalPosition,
+    ActionButton,
   },
   data() {
     return {
-      projects: [], // Toutes les données de l'API
-      displayedProjects: [], // Les statistiques à afficher
-      projectsToShow: 6, // Le nombre de projets à afficher par défaut
-      hasMoreProjects: false, // Pour savoir s'il y a encore des projets à afficher
+      projects: [], // Tous les projets récupérés
+      displayedProjects: [], // Projets actuellement affichés
+      currentPage: 1, // Page actuelle
+      limit: 6, // Nombre de projets par page
+      totalProjects: 0, // Nombre total de projets disponibles
+      isLoading: false, // Indicateur de chargement
+      hasMoreProjects: true, // Indique s'il reste des projets à charger
     }
   },
   methods: {
-    async fetchSwimmingStats() {
+    async fetchSwimmingStats(page = 1) {
+      this.isLoading = true
       try {
-        const response = await fetch('/api/swimming-stats/stats') // Appel à l'API backend
+        const response = await fetch(`/api/swimming-stats/stats?page=${page}&limit=${this.limit}`)
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données')
         }
         const data = await response.json()
-        this.projects = data // Stockage des données dans `projects`
 
-        // Tri des projets par date (du plus récent au plus ancien)
-        this.projects.sort((a, b) => new Date(b.date) - new Date(a.date))
+        // Ajouter les nouveaux projets à ceux déjà affichés
+        this.projects = [...this.projects, ...data.projects]
+        this.totalProjects = data.total
 
-        // Initialiser avec les 6 premiers projets
-        this.displayedProjects = this.projects.slice(0, this.projectsToShow)
-        this.hasMoreProjects = this.projects.length > this.projectsToShow // Vérifier s'il y a plus de projets
+        // Mettre à jour les projets affichés
+        this.updateDisplayedProjects()
+
+        // Vérifier s'il reste des projets à charger
+        this.hasMoreProjects = this.projects.length < this.totalProjects
       } catch (error) {
         console.error('Erreur :', error.message)
+      } finally {
+        this.isLoading = false
       }
     },
     loadMore() {
-      const nextProjects = this.projects.slice(
-        this.displayedProjects.length,
-        this.displayedProjects.length + this.projectsToShow,
-      )
-      this.displayedProjects = [...this.displayedProjects, ...nextProjects]
-      this.hasMoreProjects = this.displayedProjects.length < this.projects.length
+      // Charger la page suivante
+      this.currentPage += 1
+      this.fetchSwimmingStats(this.currentPage)
     },
     showLess() {
-      // Réduit l'affichage à 6 projets
-      this.displayedProjects = this.projects.slice(0, this.projectsToShow)
-      this.hasMoreProjects = this.projects.length > this.projectsToShow
+      // Réduire l'affichage à la limite initiale
+      this.displayedProjects = this.projects.slice(0, this.limit)
+      this.currentPage = 1
+      this.hasMoreProjects = true
 
-      // Faire défiler la page vers le haut de la section
+      // Faire défiler vers le haut de la section
       this.scrollToTop()
     },
+    updateDisplayedProjects() {
+      // Met à jour la liste des projets affichés
+      this.displayedProjects = this.projects.slice(0, this.currentPage * this.limit)
+    },
     scrollToTop() {
-      // Utiliser scrollIntoView pour faire défiler la page vers la section des projets
       this.$refs.skillsSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -150,7 +165,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchSwimmingStats() // Appel à l'API lors du montage du composant
+    this.fetchSwimmingStats() // Charger les premiers projets au montage
   },
 }
 </script>
