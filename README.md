@@ -9,7 +9,10 @@ Ce projet inclut un système de scraping pour récupérer et afficher des donné
 2. Ajoutez vos clés API dans ce fichier. Par exemple :
 
    ```env
-   VUE_APP_YOUTUBE_API_KEY=VotreCléAPI
+   // env.js
+   export const config = {
+     VUE_APP_YOUTUBE_API_KEY: 'VotreCléAPI',
+   }
    ```
 
 ## Démarrage du projet
