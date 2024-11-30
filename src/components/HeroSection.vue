@@ -4,8 +4,8 @@
     style="background-image: url('/background_hero.jpg')"
   >
     <div class="text-white md:mx-4 sm:mx-16 space-y-8">
-      <h1 class="text-blue-500 text-4xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase loading wave" ref="loadingText">Léon Marchand</h1>
-      <p class="w-2/3 md:w-full text-lg md:text-xl sm:text-2xl italic sm:text-left" id="text-anim">
+      <h1 class="text-blue-500 text-4xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase loading wave hidden-text" ref="loadingText">Léon Marchand</h1>
+      <p class="w-2/3 md:w-full text-lg md:text-xl sm:text-2xl italic sm:text-left hidden-text" id="text-anim">
         Explorez mes réalisations, performances et projets inspirants.
       </p>
       <div class="flex flex-col sm:flex-row gap-6 justify-center sm:justify-start">
@@ -43,7 +43,7 @@ export default {
     ActionButton,
   },
   mounted() {
-    this.animationText();
+    //this.animationText();
     //this.animateButtons();
 
     const loadingElement = this.$refs.loadingText;
@@ -54,6 +54,17 @@ export default {
     });
   },
   methods: {
+    startHeroAnimation() {
+      console.log('startHeroAnimation');
+      this.animationText();
+      document.querySelector('.wave').classList.add('wave-animation');
+      document.querySelectorAll('.swimButton').forEach((button) => {
+        button.classList.add('swiwButton-animation');
+      });
+      document.querySelectorAll('.hidden-text').forEach((text) => {
+        text.classList.remove('hidden-text');
+      });
+    },
     animationText() {
       var newText = "";
       var theText = document.querySelector("#text-anim");
@@ -143,10 +154,13 @@ export default {
   -moz-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: wave-animation 1s infinite linear, loading-animation 7s linear;
+  /*animation: wave-animation 1s infinite linear, loading-animation 7s linear;*/
   background-size: 200px 100px;
   background-repeat: repeat-x;
-  opacity: 1;
+}
+
+.wave-animation {
+  animation: wave-animation 1s infinite linear, loading-animation 6s linear;
 }
 
 @keyframes wave-animation {
@@ -219,6 +233,9 @@ h1 div {
   opacity: 0;
   transform: translateX(-300px);
   filter: blur(3px);
+}
+
+.swiwButton-animation {
   animation: slideIn 1.5s ease-out forwards;
 }
 
@@ -258,5 +275,9 @@ h1 div {
     transform: translateX(0);
     filter: blur(0px);
   }
+}
+
+.hidden-text {
+  opacity: 0;
 }
 </style>

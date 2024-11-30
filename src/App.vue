@@ -1,6 +1,7 @@
 <template>
   <div>
-    <HeroSection />
+    <HeroSection ref="heroComponent"/>
+    <WaveTransition @wavesAnimationCompleted="triggerHeroAnimation"/>
     <AboutSection />
     <ProjectsSection />
     <YoutubeSection />
@@ -8,21 +9,33 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import HeroSection from './components/HeroSection.vue'
+import WaveTransition from './components/ui/WaveTransition.vue'
 import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import YoutubeSection from './components/YoutubeSection.vue'
 import FooterSection from './components/FooterSection.vue'
 
-export default {
+const heroComponent = ref(null);
+
+function triggerHeroAnimation() {
+  if (heroComponent.value) {
+    console.log('triggerHeroAnimation');
+    heroComponent.value.startHeroAnimation();
+  }
+}
+
+/*export default {
   name: 'App',
   components: {
     HeroSection,
+    WaveTransition,
     AboutSection,
     ProjectsSection,
     YoutubeSection,
     FooterSection,
   },
-}
+}*/
 </script>
