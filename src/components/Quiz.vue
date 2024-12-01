@@ -1,7 +1,17 @@
 <template>
-  <form name="quiz">
-    <div class="flex flex-col md:flex-row justify-center mb-32">
-      <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv1">
+  <div class="flex flex-col md:flex-row justify-center mb-16">
+    <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv1">
+      <div
+        v-if="answered[0] == true"
+        class="w-full flex content-around justify-center quiz-div choice answer"
+      >
+        <b class="mb-6">{{ quiz1toString(quiz1) }} : {{ quiz1 == 2 ? 'Bravo!' : 'Dommage!' }}</b>
+        Robert Bowman (né le 6 avril 1965) est un entraîneur de natation américain, actuellement
+        directeur de la natation et entraîneur principal des équipes de natation et de plongeon des
+        Longhorns à l'Université du Texas. Bowman est surtout connu pour avoir été l'entraîneur de
+        Michael Phelps, nageur américain médaillé d'or olympique à 23 reprises.
+      </div>
+      <div v-if="answered[0] == false" class="choice">
         <div class="choice">
           <p class="text-9xl flex justify-center numbers">1</p>
           <p class="question">
@@ -10,167 +20,334 @@
           </p>
           <div class="flex flex-col quiz-options" ref="quizOptions1">
             <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-1" name="quiz-2" value="1" />
+              <input
+                @change="on1Click()"
+                type="radio"
+                id="quiz-2-1"
+                name="quiz-2"
+                value="1"
+                v-model="quiz1"
+              />
               <label>Philippe Lucas</label>
             </div>
 
             <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-2" name="quiz-2" value="2" />
+              <input
+                @change="on1Click()"
+                type="radio"
+                id="quiz-2-2"
+                name="quiz-2"
+                value="2"
+                v-model="quiz1"
+              />
               <label>Bob Bowman</label>
             </div>
 
             <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-3" name="quiz-2" value="3" />
+              <input
+                @change="on1Click()"
+                type="radio"
+                id="quiz-2-3"
+                name="quiz-2"
+                value="3"
+                v-model="quiz1"
+              />
               <label>Jean-Luc Rougé</label>
             </div>
 
             <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-4" name="quiz-2" value="4" />
+              <input
+                @change="on1Click()"
+                type="radio"
+                id="quiz-2-4"
+                name="quiz-2"
+                value="4"
+                v-model="quiz1"
+              />
               <label>Denis Auguin</label>
             </div>
           </div>
         </div>
       </div>
-      <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv2">
-        <div class="choice">
-          <p class="text-9xl flex justify-center numbers">2</p>
-          <p class="question">Qui est la mère de Léon Marchand?</p>
-          <div class="flex flex-col quiz-options" ref="quizOptions2">
-            <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-1" name="quiz-2" value="1" />
-              <label>Fanny Peltier</label>
-            </div>
+    </div>
 
-            <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-2" name="quiz-2" value="2" />
-              <label>Ambre Priotti </label>
-            </div>
+    <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv2">
+      <div
+        v-if="answered[1] == true"
+        class="w-full flex content-around justify-center quiz-div choice answer"
+      >
+        <b class="mb-6">{{ quiz2toString(quiz2) }} : {{ quiz2 == 3 ? 'Bravo!' : 'Dommage!' }}</b>
 
-            <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-3" name="quiz-2" value="3" />
-              <label>Céline Bonnet</label>
-            </div>
-
-            <div>
-              <input v-on:click="on2Click()" type="radio" id="quiz-2-4" name="quiz-2" value="4" />
-              <label>Eloise de la Taille</label>
-            </div>
-          </div>
-        </div>
+        Céline Bonnet (née le 2 février 1976) est une ancienne nageuse française spécialisée dans le
+        dos et le quatre nages, qui a participé aux Jeux olympiques d'été de 1992. Elle est mariée à
+        l'ex-nageur olympique français Xavier Marchand. Leur fils aîné, Léon Marchand, est quadruple
+        médaillé d'or olympique.
       </div>
-      <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv3">
-        <div class="choice">
-          <p class="text-9xl flex justify-center numbers">3</p>
-          <p class="question">
-            À quelle course Léon Marchand a-t-il gagné sa premiere médaille olympique?
-          </p>
-          <div class="flex flex-col quiz-options" ref="quizOptions3">
-            <div>
-              <input v-on:click="on3Click()" type="radio" id="quiz-3-1" name="quiz-3" value="1" />
-              <label>100m Brasse </label>
-            </div>
-
-            <div>
-              <input v-on:click="on3Click()" type="radio" id="quiz-3-2" name="quiz-3" value="2" />
-              <label>200m Papillon</label>
-            </div>
-
-            <div>
-              <input v-on:click="on3Click()" type="radio" id="quiz-3-3" name="quiz-3" value="3" />
-              <label>200m Nage Libre</label>
-            </div>
-
-            <div>
-              <input v-on:click="on3Click()" type="radio" id="quiz-3-4" name="quiz-3" value="4" />
-              <label>400m Quatre Nages </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv4">
-        <div class="choice">
-          <p class="text-9xl flex justify-center numbers">4</p>
-          <p class="question">Combien de médailles a-til gagné aux Jeux Olympiques de Paris 2024</p>
-          <div class="flex flex-col quiz-options" ref="quizOptions4">
-            <div>
-              <input
-                type="number"
-                id="quiz-4-gold"
-                name="quiz-4"
-                min="0"
-                max="10"
-                value="0"
-                class="border-2 pakistans"
-              />
-              <label>Or </label>
-            </div>
-
-            <div>
-              <input
-                type="number"
-                id="quiz-4-silver"
-                name="quiz-4"
-                min="0"
-                max="10"
-                value="0"
-                class="border-2 pakistans"
-              />
-              <label>Argent</label>
-            </div>
-
-            <div>
-              <input
-                type="number"
-                id="quiz-4-bronze"
-                name="quiz-4"
-                min="0"
-                max="10"
-                value="0"
-                class="border-2 pakistans"
-              />
-
-              <label>Bronze</label>
-            </div>
-
-            <div></div>
-            <button>Soumettre</button>
+      <div v-if="answered[1] == false" class="choice">
+        <p class="text-9xl flex justify-center numbers">2</p>
+        <p class="question">Qui est la mère de Léon Marchand?</p>
+        <div class="flex flex-col quiz-options" ref="quizOptions2">
+          <div>
+            <input
+              @change="on2Click()"
+              type="radio"
+              id="quiz-2-1"
+              name="quiz-2"
+              value="1"
+              v-model="quiz2"
+            />
+            <label>Fanny Peltier</label>
           </div>
 
-          <!-- when clicking on one, sumbit button appears -->
-        </div>
-      </div>
-      <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv5">
-        <div class="choice">
-          <p class="text-9xl flex justify-center numbers">5</p>
-          <p class="pakistans-bold question">
-            Quel est le surnom de Léon Marchand à Arizona State University?
-          </p>
-          <div class="flex flex-col quiz-options" ref="quizOptions5">
-            <div>
-              <input v-on:click="on5Click()" type="radio" id="quiz-5-1" name="quiz-5" value="1" />
-              <label>The croissant </label>
-            </div>
-
-            <div>
-              <input v-on:click="on5Click()" type="radio" id="quiz-5-2" name="quiz-5" value="2" />
-              <label>The baguette</label>
-            </div>
-
-            <div>
-              <input v-on:click="on5Click()" type="radio" id="quiz-5-3" name="quiz-5" value="3" />
-              <label>Hon Hon</label>
-            </div>
-
-            <div>
-              <input v-on:click="on5Click()" type="radio" id="quiz-5-4" name="quiz-5" value="4" />
-              <label>Oui Oui</label>
-            </div>
+          <div>
+            <input
+              @change="on2Click()"
+              type="radio"
+              id="quiz-2-2"
+              name="quiz-2"
+              value="2"
+              v-model="quiz2"
+            />
+            <label>Ambre Priotti </label>
           </div>
-          <!-- when clicking on one, sumbits -->
+
+          <div>
+            <input
+              @change="on2Click()"
+              type="radio"
+              id="quiz-2-3"
+              name="quiz-2"
+              value="3"
+              v-model="quiz2"
+            />
+            <label>Céline Bonnet</label>
+          </div>
+
+          <div>
+            <input
+              @change="on2Click()"
+              type="radio"
+              id="quiz-2-4"
+              name="quiz-2"
+              value="4"
+              v-model="quiz2"
+            />
+            <label>Eloise de la Taille</label>
+          </div>
         </div>
       </div>
     </div>
-  </form>
+    <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv3">
+      <div
+        v-if="answered[2] == true"
+        class="w-full flex content-around justify-center quiz-div choice answer"
+      >
+        <b class="mb-6">{{ quiz3toString(quiz3) }} : {{ quiz3 == 4 ? 'Bravo!' : 'Dommage!' }}</b>
+
+        Il semblait difficile à croire, lorsque Marchand toucha le mur en premier lors du 400 m
+        quatre nages, que ce n'était que sa première médaille olympique. Au cours des trois
+        dernières années, il s'était tellement imposé qu'une médaille olympique était la dernière
+        grande réalisation qui lui manquait. Dix titres de champion NCAA, cinq championnats du monde
+        de natation et un record du monde semblaient constituer un palmarès trop impressionnant pour
+        quelqu'un qui faisait ses débuts aux Jeux olympiques.
+      </div>
+      <div v-if="answered[2] == false" class="choice">
+        <p class="text-9xl flex justify-center numbers">3</p>
+        <p class="question">
+          À quelle course Léon Marchand a-t-il gagné sa premiere médaille olympique?
+        </p>
+        <div class="flex flex-col quiz-options" ref="quizOptions3">
+          <div>
+            <input
+              @change="on3Click()"
+              type="radio"
+              id="quiz-3-1"
+              name="quiz-3"
+              value="1"
+              v-model="quiz3"
+            />
+            <label>100m Brasse </label>
+          </div>
+
+          <div>
+            <input
+              @change="on3Click()"
+              type="radio"
+              id="quiz-3-2"
+              name="quiz-3"
+              value="2"
+              v-model="quiz3"
+            />
+            <label>200m Papillon</label>
+          </div>
+
+          <div>
+            <input
+              @change="on3Click()"
+              type="radio"
+              id="quiz-3-3"
+              name="quiz-3"
+              value="3"
+              v-model="quiz3"
+            />
+            <label>200m Nage Libre</label>
+          </div>
+
+          <div>
+            <input
+              @change="on3Click()"
+              type="radio"
+              id="quiz-3-4"
+              name="quiz-3"
+              value="4"
+              v-model="quiz3"
+            />
+            <label>400m Quatre Nages </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv4">
+      <div
+        v-if="answered[3] == true"
+        class="w-full flex content-around justify-center quiz-div choice answer"
+      >
+        <b class="mb-6"
+          >{{ quiz4toString(quiz4) }} :
+          {{
+            this.quiz4.bronze == '1' && this.quiz4.gold == '4' && this.quiz4.silver == '0'
+              ? 'Bravo!'
+              : 'Dommage!'
+          }}</b
+        >
+
+        Quatre médailles d'or et une médaille de bronze en relais représentent le sommet de ce que
+        Marchand aurait pu rêver. Cela le place dans une compagnie très sélecte, seuls Michael
+        Phelps (à deux reprises), Mark Spitz et Kristin Otto ayant remporté autant de médailles d'or
+        individuelles en piscine lors d'une seule édition des Jeux olympiques.
+      </div>
+      <div v-if="answered[3] == false" class="choice">
+        <p class="text-9xl flex justify-center numbers">4</p>
+        <p class="question">Combien de médailles a-til gagné aux Jeux Olympiques de Paris 2024</p>
+        <div class="flex flex-col quiz-options number-container" ref="quizOptions4">
+          <div>
+            <input
+              type="number"
+              id="quiz-4-gold"
+              name="quiz-4"
+              min="0"
+              max="10"
+              value="0"
+              class="pakistans"
+              v-model="quiz4.gold"
+            />
+            <label>Or </label>
+          </div>
+
+          <div>
+            <input
+              type="number"
+              id="quiz-4-silver"
+              name="quiz-4"
+              min="0"
+              max="10"
+              value="0"
+              class="pakistans"
+              v-model="quiz4.silver"
+            />
+            <label>Argent</label>
+          </div>
+
+          <div>
+            <input
+              type="number"
+              id="quiz-4-bronze"
+              name="quiz-4"
+              min="0"
+              max="10"
+              value="0"
+              class="pakistans"
+              v-model="quiz4.bronze"
+            />
+
+            <label>Bronze</label>
+          </div>
+          <button class="mt:16 submit-4" @click="(event) => on4Click(event)">Soumettre</button>
+        </div>
+
+        <!-- when clicking on one, sumbit button appears -->
+      </div>
+    </div>
+    <div class="w-full flex content-around justify-center quiz-div" ref="quizDiv5">
+      <div
+        v-if="answered[4] == true"
+        class="w-full flex content-around justify-center quiz-div choice answer"
+      >
+        <b class="mb-6">{{ quiz5toString(quiz5) }} : {{ quiz5 == 2 ? 'Bravo!' : 'Dommage!' }}</b>
+
+        Son surnom là bas, c'est bel et bien "The Baguette"!
+      </div>
+      <div v-if="answered[4] == false" class="choice">
+        <p class="text-9xl flex justify-center numbers">5</p>
+        <p class="pakistans-bold question">
+          Quel est le surnom de Léon Marchand à Arizona State University?
+        </p>
+        <div class="flex flex-col quiz-options" ref="quizOptions5">
+          <div>
+            <input
+              @change="on5Click()"
+              type="radio"
+              id="quiz-5-1"
+              name="quiz-5"
+              value="1"
+              v-model="quiz5"
+            />
+            <label>The croissant </label>
+          </div>
+
+          <div>
+            <input
+              @change="on5Click()"
+              type="radio"
+              id="quiz-5-2"
+              name="quiz-5"
+              value="2"
+              v-model="quiz5"
+            />
+            <label>The baguette</label>
+          </div>
+
+          <div>
+            <input
+              @change="on5Click()"
+              type="radio"
+              id="quiz-5-3"
+              name="quiz-5"
+              value="3"
+              v-model="quiz5"
+            />
+            <label>Hon Hon</label>
+          </div>
+
+          <div>
+            <input
+              @change="on5Click()"
+              type="radio"
+              id="quiz-5-4"
+              name="quiz-5"
+              value="4"
+              v-model="quiz5"
+            />
+            <label>Oui Oui</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-if="isDone()">
+    <h2 class="text-2xl font-bold text-center mb-12 text-gray-800">Résultats:</h2>
+    <p></p>
+  </div>
 </template>
 
 <script>
@@ -180,6 +357,11 @@ export default {
   name: 'Quiz',
   data() {
     return {
+      quiz1: '',
+      quiz2: '',
+      quiz3: '',
+      quiz4: { gold: '0', silver: '0', bronze: '0' },
+      quiz5: '',
       quizCollapsed: true,
       answered: [false, false, false, false, false],
       answers: ['', '', '', '', ''],
@@ -187,33 +369,108 @@ export default {
     }
   },
   methods: {
+    isDone() {
+      return this.answered.find((bool) => bool == false) == undefined
+    },
+    showAnswer() {
+      console.log('count')
+    },
+    quiz1toString(answer) {
+      switch (answer) {
+        case '1':
+          return 'Phillipe Lucas'
+        case '2':
+          return 'Bob Bowman'
+        case '3':
+          return 'Jean-Luc Rougé'
+        case '4':
+          return 'Denis Auguin'
+        default:
+          break
+      }
+    },
+    quiz2toString(answer) {
+      switch (answer) {
+        case '1':
+          return 'Fanny Peltier'
+        case '2':
+          return 'Ambre Priotti'
+        case '3':
+          return 'Céline Bonnet'
+        case '4':
+          return 'Eloise de la Taille'
+        default:
+          break
+      }
+    },
+    quiz3toString(answer) {
+      switch (answer) {
+        case '1':
+          return '100m Brasse'
+        case '2':
+          return '200m Papillon'
+        case '3':
+          return '200m Nage Libre'
+        case '4':
+          return '400m Quatre Nages'
+        default:
+          break
+      }
+    },
+    quiz4toString(answer) {
+      return `${answer.gold} Ors, ${answer.silver} Argents et ${answer.bronze} Bronzes`
+    },
+    quiz5toString(answer) {
+      switch (answer) {
+        case '1':
+          return 'The croissant'
+        case '2':
+          return 'The baguette'
+        case '3':
+          return 'Hon Hon'
+        case '4':
+          return 'Oui Oui'
+        default:
+          break
+      }
+    },
     quizText() {
       return this.quizCollapsed ? 'Faire le Quiz +' : 'Faire le Quiz -'
     },
     on5Click() {
-      //show answer
-      answered[0] = true
-      console.log('5 answer')
+      this.answered[4] = true
+      if (this.quiz5 == '2') {
+      }
+      this.answered.find((bool) => bool == false) == undefined && this.showAnswer()
     },
-    on4Click() {
-      //show answer
-      answered[1] = true
-      console.log('4 answer')
+    on4Click(event) {
+      this.answered[3] = true
+      console.log(event)
+      if (event) {
+        event.preventDefault()
+      }
+      if (this.quiz4.bronze == '1' && this.quiz4.gold == '4' && this.quiz4.silver == '0') {
+      }
+      this.answered.find((bool) => bool == false) == undefined && this.showAnswer()
     },
     on3Click() {
-      //show answer
-      answered[2] = true
-      console.log('3 answer')
+      this.answered[2] = true
+      if (this.quiz3 == '4') {
+      }
+      this.answered.find((bool) => bool == false) == undefined && this.showAnswer()
     },
     on2Click() {
-      //show answer
-      answered[3] = true
-      console.log('2 answer')
+      this.answered[1] = true
+      if (this.quiz2 == '3') {
+      }
+      this.answered.find((bool) => bool == false) == undefined && this.showAnswer()
     },
     on1Click() {
+      this.answered[0] = true
       //show answer
-      answered[4] = true
-      console.log('1 answer')
+      if (this.quiz1 == '2') {
+      }
+      this.answered.find((bool) => bool == false) == undefined && this.showAnswer()
     },
     animateQuizDiv1() {
       // GSAP animation
@@ -364,12 +621,29 @@ export default {
     this.$refs.quizDiv5.addEventListener('mouseenter', this.animateQuizDiv5)
     this.$refs.quizDiv5.addEventListener('mouseleave', this.resetQuizDiv5)
   },
-  // beforeDestroy() {
-  //   // Clean up event listener when the component is destroyed
-  //   if (this.$refs.quizDiv1) {
-  //     this.$refs.quizDiv1.removeEventListener('mouseenter', this.animateQuizDiv1)
-  //   }
-  // },
+  beforeDestroy() {
+    // Clean up event listener when the component is destroyed
+    if (this.$refs.quizDiv1) {
+      this.$refs.quizDiv1.removeEventListener('mouseenter', this.animateQuizDiv1)
+      this.$refs.quizDiv1.removeEventListener('mouseexit', this.animateQuizDiv1)
+    }
+    if (this.$refs.quizDiv2) {
+      this.$refs.quizDiv2.removeEventListener('mouseenter', this.animateQuizDiv2)
+      this.$refs.quizDiv2.removeEventListener('mouseexit', this.animateQuizDiv2)
+    }
+    if (this.$refs.quizDiv3) {
+      this.$refs.quizDiv3.removeEventListener('mouseenter', this.animateQuizDiv3)
+      this.$refs.quizDiv3.removeEventListener('mouseexit', this.animateQuizDiv3)
+    }
+    if (this.$refs.quizDiv4) {
+      this.$refs.quizDiv1.removeEventListener('mouseenter', this.animateQuizDiv4)
+      this.$refs.quizDiv1.removeEventListener('mouseexit', this.animateQuizDiv4)
+    }
+    if (this.$refs.quizDiv5) {
+      this.$refs.quizDiv1.removeEventListener('mouseenter', this.animateQuizDiv5)
+      this.$refs.quizDiv1.removeEventListener('mouseexit', this.animateQuizDiv5)
+    }
+  },
 }
 </script>
 
@@ -384,8 +658,25 @@ iframe {
     height: 150px;
   }
 }
+
+.submit-4 {
+  margin-top: 1em;
+  padding: 10px;
+}
+.submit-4:hover {
+  background-color: #ffffff;
+  transition: background-color 0.4s;
+  border-radius: 10px;
+}
 .quiz-div {
   width: 500;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+.answer {
+  text-align: center;
+  width: 300px;
+  overflow-x: hidden;
 }
 .quiz-options {
   opacity: 0;
@@ -394,7 +685,16 @@ iframe {
   background-color: 'transparent';
   color: '#B4B5B7';
 }
-
+.number-container input {
+  text-align: center;
+  background-color: transparent;
+  margin-bottom: 2px;
+  opacity: 1;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  opacity: 0.4;
+}
 .numbers {
   font-family: pakistans-bold;
   margin-bottom: 50px;

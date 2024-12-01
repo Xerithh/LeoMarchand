@@ -29,10 +29,10 @@ export default {
       this.quizCollapsed = !this.quizCollapsed
       if (!this.quizCollapsed) {
         tl.to('.quiz-collapse', {
-          maxHeight: 1000, //TODO adjust this later
+          maxHeight: 4000, //TODO adjust this later
           //color: 'red', // Animates to green
           duration: 2,
-          ease: 'expo.out',
+          ease: 'expo.inOut',
         })
       } else {
         tl.to('.quiz-collapse', {
