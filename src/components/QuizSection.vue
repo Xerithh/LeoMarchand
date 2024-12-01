@@ -1,25 +1,47 @@
 <template>
   <div class="w-full flex justify-center items-center flex-col py-20">
-    <h2 class="text-3xl font-bold mb-6">Quiz</h2>
-    <p class="mb-10">Pour les fans: teste tes connaissances sur ma carrière !</p>
-    <ActionButton v-on:click="lmao()" text="Faire le Quiz"></ActionButton>
+    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Quiz</h2>
+    <p class="mb-10">Pour les fans: défie tes connaissances sur ma carrière !</p>
+    <ActionButton v-on:click="expand()" :text="quizText()"></ActionButton>
   </div>
+  <div class="quiz-collapse"><Quiz /></div>
 </template>
 
 <script>
 import ActionButton from './ui/ActionButton.vue'
-
+import Quiz from './Quiz.vue'
+import gsap from 'gsap'
 export default {
   name: 'QuizSection',
-  components: { ActionButton },
+  components: { ActionButton, Quiz },
   data() {
     return {
-      counter: 0,
+      quizCollapsed: true,
+      buttonText: 'Faire le Quiz +',
     }
   },
   methods: {
-    lmao() {
-      this.counter++
+    quizText() {
+      return this.quizCollapsed ? 'Faire le Quiz +' : 'Faire le Quiz -'
+    },
+    expand() {
+      const tl = gsap.timeline({ defaults: { duration: 1 } })
+      this.quizCollapsed = !this.quizCollapsed
+      if (!this.quizCollapsed) {
+        tl.to('.quiz-collapse', {
+          maxHeight: 1000, //TODO adjust this later
+          //color: 'red', // Animates to green
+          duration: 2,
+          ease: 'expo.out',
+        })
+      } else {
+        tl.to('.quiz-collapse', {
+          maxHeight: 0,
+          // color: 'red', // Animates to green
+
+          ease: 'expo.out',
+        })
+      }
     },
   },
 }
@@ -35,5 +57,12 @@ iframe {
     width: 300px;
     height: 150px;
   }
+}
+.quiz-collapse {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  /* color: red; */
 }
 </style>

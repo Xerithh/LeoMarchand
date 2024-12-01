@@ -1,6 +1,7 @@
 <template>
   <div class="w-full flex justify-center items-center flex-col bg-gray-100 py-20">
-    <h2 class="text-3xl font-bold mb-6">Dernières Vidéos</h2>
+    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Dernières Vidéos</h2>
+
     <div v-if="videos.length > 0" class="flex justify-center items-center flex-wrap gap-4 p-4">
       <div v-for="video in videos" :key="video.id.videoId" class="youtube-video">
         <iframe

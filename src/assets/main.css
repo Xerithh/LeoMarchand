@@ -5,9 +5,25 @@
 *,
 ::before,
 ::after {
-    box-sizing: border-box;
-    font-family: "Lato", sans-serif;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+@font-face {
+  font-family: pakistans;
+  src: url(../fonts/Parkinsans-Regular.ttf);
+}
+@font-face {
+  font-family: pakistans-bold;
+  src: url(../fonts/Parkinsans-Bold.ttf);
+}
+p,
+h1,
+h2,
+h3,
+a,
+div {
+  font-family: pakistans;
 }
