@@ -20,10 +20,13 @@ import FooterSection from './components/FooterSection.vue'
 
 const heroComponent = ref(null);
 
-function triggerHeroAnimation() {
+function triggerHeroAnimation(data) {
   if (heroComponent.value) {
     console.log('triggerHeroAnimation');
-    heroComponent.value.startHeroAnimation();
+    if(data == 1)
+      heroComponent.value.startLoadingAnimation();
+    else
+      heroComponent.value.startHeroAnimation();
   }
 }
 

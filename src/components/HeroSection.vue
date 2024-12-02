@@ -4,8 +4,8 @@
     style="background-image: url('/background_hero.jpg')"
   >
     <div class="text-white md:mx-4 sm:mx-16 space-y-8">
-      <h1 class="text-blue-500 text-4xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase loading wave hidden-text" ref="loadingText">Léon Marchand</h1>
-      <p class="w-2/3 md:w-full text-lg md:text-xl sm:text-2xl italic sm:text-left hidden-text" id="text-anim">
+      <h1 class="text-blue-500 text-4xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase loading wave hidden-text1" ref="loadingText">Léon Marchand</h1>
+      <p class="w-2/3 md:w-full text-lg md:text-xl sm:text-2xl italic sm:text-left hidden-text2" id="text-anim">
         Explorez mes réalisations, performances et projets inspirants.
       </p>
       <div class="flex flex-col sm:flex-row gap-6 justify-center sm:justify-start">
@@ -55,14 +55,20 @@ export default {
   },
   methods: {
     startHeroAnimation() {
-      console.log('startHeroAnimation');
-      this.animationText();
-      document.querySelector('.wave').classList.add('wave-animation');
+      //console.log('startHeroAnimation');
+      //document.querySelector('.wave').classList.add('wave-animation');
       document.querySelectorAll('.swimButton').forEach((button) => {
         button.classList.add('swiwButton-animation');
       });
-      document.querySelectorAll('.hidden-text').forEach((text) => {
-        text.classList.remove('hidden-text');
+      document.querySelectorAll('.hidden-text2').forEach((text) => {
+        text.classList.remove('hidden-text2');
+      });
+    },
+    startLoadingAnimation() {
+      this.animationText();
+      document.querySelector('.wave').classList.add('wave-animation');
+      document.querySelectorAll('.hidden-text1').forEach((text) => {
+        text.classList.remove('hidden-text1');
       });
     },
     animationText() {
@@ -160,7 +166,7 @@ export default {
 }
 
 .wave-animation {
-  animation: wave-animation 1s infinite linear, loading-animation 6s linear;
+  animation: wave-animation 1s infinite linear, loading-animation 2s linear;
 }
 
 @keyframes wave-animation {
@@ -197,7 +203,7 @@ export default {
   }
 
   .wave {
-    animation: wave-animation 1s infinite linear, loading-animation 6s linear;
+    animation: wave-animation 1s infinite linear, loading-animation 1s linear;
   }
 }
 
@@ -277,7 +283,7 @@ h1 div {
   }
 }
 
-.hidden-text {
+.hidden-text1, .hidden-text2 {
   opacity: 0;
 }
 </style>
