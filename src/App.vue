@@ -4,6 +4,7 @@
     <AboutSection />
     <ProjectsSection />
     <YoutubeSection />
+    <QuizSection />
     <FooterSection />
   </div>
 </template>
@@ -14,6 +15,7 @@ import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import YoutubeSection from './components/YoutubeSection.vue'
 import FooterSection from './components/FooterSection.vue'
+import QuizSection from './components/QuizSection.vue'
 
 export default {
   name: 'App',
@@ -22,6 +24,7 @@ export default {
     AboutSection,
     ProjectsSection,
     YoutubeSection,
+    QuizSection,
     FooterSection,
   },
 }
