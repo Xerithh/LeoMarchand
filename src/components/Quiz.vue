@@ -384,7 +384,10 @@
     <h2 class="text-2xl font-bold text-center mb-12 text-gray-800">
       Résultats: {{ correctAnswers }} / 5
     </h2>
-    <p class="text-1xl text-center mb-12 text-gray-800">{{ result2String(correctAnswers) }}</p>
+    <p class="text-1xl text-center text-gray-800">{{ result2String(correctAnswers) }}</p>
+    <button @click="restart()" class="flex restart text-1xl text-center mb-12 text-gray-800">
+      Recommencer
+    </button>
   </div>
 </template>
 
@@ -403,7 +406,6 @@ export default {
       quizCollapsed: true,
       answered: [false, false, false, false, false],
       correctAnswers: 0,
-      answers: ['', '', '', '', ''],
       buttonText: 'Faire le Quiz +',
     }
   },
@@ -411,7 +413,15 @@ export default {
     isDone() {
       return this.answered.find((bool) => bool == false) == undefined
     },
-
+    restart() {
+      this.resetQuizDiv1()
+      this.resetQuizDiv2()
+      this.resetQuizDiv3()
+      this.resetQuizDiv4()
+      this.resetQuizDiv5()
+      this.answered = [false, false, false, false, false]
+      this.correctAnswers = 0
+    },
     quiz1toString(answer) {
       switch (answer) {
         case '1':
@@ -780,6 +790,24 @@ iframe {
   background-color: #ffffff;
   transition: background-color 0.4s;
   border-radius: 10px;
+}
+.restart {
+  margin-top: 1em;
+  padding: 10px;
+  border-radius: 10px;
+  /* //background-color: #b4b5b7; */
+  border-width: 1px;
+  border-color: #c5c5c5;
+  transition:
+    background-color 0.4s,
+    border-color 0.4s;
+  justify-content: center;
+  justify-self: center;
+}
+.restart:hover {
+  border-color: rgba(0, 0, 0, 0);
+
+  background-color: #075985;
 }
 .quiz-div {
   width: 500;
