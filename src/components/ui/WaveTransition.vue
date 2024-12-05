@@ -1,7 +1,10 @@
 <template>
     <div class="background">
         <canvas ref="canvas" id="canvas"></canvas>
-        <div class="text"></div>
+        <div id="backgroundRipples">
+            <RipplesAnimation ref="ripplesAnimationRef" class="ripple" @updateGoUp="handleGoUp" />
+            <h1 class="text-5xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase hiddenText" ref="title" id="textRipples">Plongez dans mon monde</h1>
+        </div>
     </div>
 </template>
   
@@ -14,6 +17,7 @@
     top: 0;
     left: 0;
     z-index: 100;
+    /*transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);*/
     /*border: 1px solid red;*/
 }
   
@@ -24,9 +28,27 @@
     /*border: 1px solid blue;*/
 }
 
-.text {
+#backgroundRipples {
     background-color: #6ec3fe;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  /* Ajoute cette ligne pour gérer le placement des éléments verticalement */
+}
+
+h1 {
+    margin-top: 25rem; /* Ajuste cette valeur pour déplacer le titre vers le bas */
+    text-align: center;
+    color: #d1f5ff;
+}
+
+.hiddenText {
+    opacity: 0;
+}
+
+:deep(.letter) {
+  display: inline-block;
 }
 </style>
   
@@ -34,9 +56,11 @@
 import { onMounted, onBeforeUnmount, ref } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import RipplesAnimation from "./RipplesAnimation.vue";
 
 gsap.registerPlugin(ScrollTrigger);
-  
+
+const title = ref(null);
 const canvas = ref(null);
 let context;
 let resolution = Math.min(window.devicePixelRatio || 1, 2);
@@ -50,6 +74,8 @@ let halfwayTriggered = false;
 let thirdwayTriggered = false;
 let animGoUp = false;
 
+const ripplesAnimationRef = ref(null);
+
 const emit = defineEmits();
 
 document.body.style.overflow = 'hidden';
@@ -58,7 +84,56 @@ function startHeroAnimation() {
     emit('wavesAnimationCompleted');
 }
 
+function handleGoUp(value) {
+    animGoUp = value;
+    //console.log('animGoUp updated:', animGoUp);
+}
+
+const onTitleVisible = () => {
+    if (title.value) {
+        title.value.classList.remove('hiddenText');
+    }
+    var newText = "";
+      var theText = document.querySelector("#textRipples");
+      for (let i = 0; i < theText.innerText.length; i++) {
+        newText += `<div class="letter">`;
+        if (theText.innerText[i] == " "){newText += "&nbsp;"}
+        else {newText += theText.innerText[i];}
+        newText += "</div>";
+      }
+      theText.innerHTML = newText;
+      gsap.fromTo("#textRipples div", {
+        opacity:0, 
+        y:45
+      }, {
+        duration: 2, 
+        opacity:1, 
+        y:0, 
+        stagger: 0.03, 
+        ease: "elastic(1.2, 0.5)",
+      });
+};
+
 onMounted(() => {
+    /* *** RIPPLES *** */
+    const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // L'élément est visible, appeler la fonction
+        onTitleVisible();
+        observer.unobserve(entry.target); // Arrêter l'observation une fois l'élément visible
+      }
+    });
+  }, {
+    threshold: 0.5 // Déclenche la fonction quand l'élément est visible à 50%
+  });
+
+  // Observer l'élément <h1>
+  if (title.value) {
+    observer.observe(title.value);
+  }
+  
+  /* *** CANVAS *** */
     function resetAnimations(bool) {
         if(!bool)
             parallaxAnimationUp.progress(0).pause();
@@ -138,7 +213,6 @@ onMounted(() => {
             document.body.style.overflow = 'hidden';
             setTimeout(() => {
             window.addEventListener("wheel", (event) => {
-                console.log("coucou");
                 if (event.deltaY > 0 && !animGoUp) {
                     // Défilement vers le bas (scroll down)
                     parallaxAnimationUp.play();
@@ -147,7 +221,7 @@ onMounted(() => {
                     parallaxAnimationDown.play();
                 }
             });
-        }, 300);
+        }, 500);
         },
     });
 
@@ -170,8 +244,11 @@ onMounted(() => {
             });
         },
         onComplete: () => {
+            if (ripplesAnimationRef.value) {
+                ripplesAnimationRef.value.addWindowListener();
+            }
             resetAnimations(true);
-            animGoUp = true;
+            //animGoUp = true;
         }
     });
 
