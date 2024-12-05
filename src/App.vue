@@ -1,21 +1,28 @@
 <template>
-  <div ref="box" class="w-20 h-20 bg-blue-500"></div>
-  <h1>Salut</h1>
+  <div>
+    <HeroSection />
+    <AboutSection />
+    <ProjectsSection />
+    <YoutubeSection />
+    <FooterSection />
+  </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import { gsap } from 'gsap'
+import HeroSection from './components/HeroSection.vue'
+import AboutSection from './components/AboutSection.vue'
+import ProjectsSection from './components/ProjectsSection.vue'
+import YoutubeSection from './components/YoutubeSection.vue'
+import FooterSection from './components/FooterSection.vue'
 
 export default {
-  setup() {
-    const box = ref(null)
-
-    onMounted(() => {
-      gsap.to(box.value, { x: 200, duration: 2 })
-    })
-
-    return { box }
+  name: 'App',
+  components: {
+    HeroSection,
+    AboutSection,
+    ProjectsSection,
+    YoutubeSection,
+    FooterSection,
   },
 }
 </script>
