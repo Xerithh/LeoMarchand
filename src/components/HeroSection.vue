@@ -85,41 +85,11 @@ export default {
         opacity:0, 
         y:45
       }, {
-        duration: 2, 
+        duration: 1.5, 
         opacity:1, 
         y:0, 
-        stagger: 0.03, 
+        stagger: 0.01, 
         ease: "elastic(1.2, 0.5)",
-      });
-    },
-    animateButtons() {
-      const buttons = document.querySelectorAll('.swimButton');
-
-      /*gsap.fromTo(
-        buttons,
-        {
-          opacity: 0,
-          x: -300,
-          filter: "blur(3px)",
-        },
-        {
-          opacity: 1,
-          x: 0,
-          filter: "blur(0px)",
-          duration: 1.5,
-          ease: "none",
-          stagger: 0.02,
-        }
-      );*/
-
-      buttons.forEach((button, index) => {
-        gsap.to(button, {
-          y: "+=5",
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          duration: 2 + index * 0.2,
-        });
       });
     },
   },
@@ -242,7 +212,7 @@ h1 div {
 }
 
 .swiwButton-animation {
-  animation: slideIn 1.5s ease-out forwards;
+  animation: slideIn 0.8s ease-out forwards;
 }
 
 /* Stagger effect using nth-child */
@@ -251,23 +221,23 @@ h1 div {
 }
 
 .swimButton:nth-child(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0.1s;
 }
 
 .swimButton:nth-child(3) {
-  animation-delay: 0.4s;
+  animation-delay: 0.2s;
 }
 
 .swimButton:nth-child(4) {
-  animation-delay: 0.6s;
+  animation-delay: 0.3s;
 }
 
 .swimButton:nth-child(5) {
-  animation-delay: 0.8s;
+  animation-delay: 0.4s;
 }
 
 .swimButton:nth-child(6) {
-  animation-delay: 1s;
+  animation-delay: 0.5s;
 }
 
 @keyframes slideIn {

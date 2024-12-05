@@ -1,11 +1,14 @@
 <template>
   <div>
-    <HeroSection ref="heroComponent"/>
-    <WaveTransition @wavesAnimationCompleted="triggerHeroAnimation"/>
-    <AboutSection />
-    <ProjectsSection />
-    <YoutubeSection />
-    <FooterSection />
+    <!--<SwimAnimation />-->
+      <HeroSection ref="heroComponent" id="heroComponent"/>
+      <WaveTransition id="waveComponent" @wavesAnimationCompleted="triggerHeroAnimation"/>
+    <div id="aboutComponent">
+      <AboutSection />
+      <ProjectsSection />
+      <YoutubeSection />
+      <FooterSection />
+    </div>
   </div>
 </template>
 
@@ -17,6 +20,7 @@ import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import YoutubeSection from './components/YoutubeSection.vue'
 import FooterSection from './components/FooterSection.vue'
+import SwimAnimation from './components/ui/SwimAnimation.vue';
 
 const heroComponent = ref(null);
 

@@ -1,9 +1,10 @@
 <template>
-    <div class="background">
+    <div class="background" id="backgroundGoDown">
         <canvas ref="canvas" id="canvas"></canvas>
         <div id="backgroundRipples">
-            <RipplesAnimation ref="ripplesAnimationRef" class="ripple" @updateGoUp="handleGoUp" />
+            <RipplesAnimation v-show="isRipplesActive" ref="ripplesAnimationRef" class="ripple" @updateGoUp="handleGoUp" @updateSwimmer="handleSwimmer" />
             <h1 class="text-5xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase hiddenText" ref="title" id="textRipples">Plongez dans mon monde</h1>
+            <SwimAnimation @swimEvent="swimmerUp" v-if="isSwimActive" />
         </div>
     </div>
 </template>
@@ -12,13 +13,12 @@
 .background {
     background-color: transparent;
     width: 100%;
-    height: 100vh; 
+    height: 100%; 
     position: absolute;
     top: 0;
     left: 0;
     z-index: 100;
-    /*transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);*/
-    /*border: 1px solid red;*/
+    /*border: 5px solid rgb(242, 255, 0);*/
 }
   
 #canvas {
@@ -34,7 +34,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;  /* Ajoute cette ligne pour gérer le placement des éléments verticalement */
+    flex-direction: column;
+    /*border: 3px solid red;*/
 }
 
 h1 {
@@ -53,10 +54,11 @@ h1 {
 </style>
   
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from "vue";
+import { onMounted, onBeforeUnmount, defineEmits, ref } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import RipplesAnimation from "./RipplesAnimation.vue";
+import SwimAnimation from "./SwimAnimation.vue";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,6 +78,9 @@ let animGoUp = false;
 
 const ripplesAnimationRef = ref(null);
 
+const isSwimActive = ref(false);
+const isRipplesActive = ref(true);
+
 const emit = defineEmits();
 
 document.body.style.overflow = 'hidden';
@@ -87,6 +92,54 @@ function startHeroAnimation() {
 function handleGoUp(value) {
     animGoUp = value;
     //console.log('animGoUp updated:', animGoUp);
+}
+
+function handleSwimmer() {
+  // Activer SwimAnimation et désactiver RipplesAnimation
+    isSwimActive.value = true;
+    isRipplesActive.value = false;
+
+    /*const swimElement = document.getElementById("swimAnimation");
+    if (swimElement) 
+    {
+        console.log("id exists");
+      // Assurez-vous que l'opacité initiale est à 0
+        swimElement.style.opacity = "0";
+    }*/
+  /*onMounted(() => {
+    gsap.fromTo(
+      "#swimAnimation", // Sélecteur du composant
+      { opacity: 0 },   // État initial
+      { opacity: 1, duration: 10 } // État final avec durée
+    );
+  });*/
+}
+
+function swimmerUp() {
+    console.log("SHOOOOOOOOOOOOW");
+    isSwimActive.value = false;
+    isRipplesActive.value = true;
+    resetAnimations(false);
+    animGoUp = false;
+
+    gsap.to(".background", {
+        y: "-100%",
+        ease: "power5.out",
+        duration: 1,
+        paused: false,
+        onStart: () => {
+            waves.forEach(wave => {
+                wave.amplitude = wave.amplitude * 3;
+            });
+        },
+        onComplete: () => {
+            if (ripplesAnimationRef.value) {
+                ripplesAnimationRef.value.addWindowListener();
+            }
+            resetAnimations(true);
+            //animGoUp = true;
+        }
+    });
 }
 
 const onTitleVisible = () => {
@@ -182,7 +235,7 @@ onMounted(() => {
     /* *** WAVE ANIMATION *** */
     const createWaveAnimation = (wave, delay) => {
         return gsap.to(wave, {
-            duration: 1.8,
+            duration: 1.3,
             waveHeight: vh * 0.95,
             ease: "sine.inOut",
             repeat: 0,
@@ -192,7 +245,7 @@ onMounted(() => {
     };
 
     const wave1Animation = gsap.to(wave1, {
-        duration: 1.8,
+        duration: 1.3,
         waveHeight: vh * 0.95,
         ease: "sine.inOut",
         repeat: 0,
@@ -213,10 +266,13 @@ onMounted(() => {
             document.body.style.overflow = 'hidden';
             setTimeout(() => {
             window.addEventListener("wheel", (event) => {
+                //console.log("WHEELING IN WAVE");
                 if (event.deltaY > 0 && !animGoUp) {
+                    //console.log("WHEELING IN UP");
                     // Défilement vers le bas (scroll down)
                     parallaxAnimationUp.play();
                 } else if (event.deltaY < 0 && animGoUp) {
+                    //console.log("WHEELING IN DOWN");
                     // Défilement vers le haut (scroll up)
                     parallaxAnimationDown.play();
                 }
@@ -236,7 +292,7 @@ onMounted(() => {
     const parallaxAnimationUp = gsap.to(".background", {
         y: "-100%",
         ease: "power5.out",
-        duration: 1.8,
+        duration: 1,
         paused: true,
         onStart: () => {
             waves.forEach(wave => {
@@ -255,7 +311,7 @@ onMounted(() => {
     const parallaxAnimationDown = gsap.to(".background", {
         y: "0%",
         ease: "power5.out",
-        duration: 1.8,
+        duration: 1,
         paused: true,
         onStart: () => {
             waves.forEach(wave => {

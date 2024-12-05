@@ -182,7 +182,7 @@ const addWindowListener = () => {
             let scales = getScales();
 
             //Ripples is growing
-            // animation is playing and scroll up
+            // play + scroll up --> GOING DARK BLUE + NO CIRCLE + NO TEXT
             if(!stopAnimation.value && delta > 0)
             {
                 console.log("going dark blue");
@@ -203,10 +203,15 @@ const addWindowListener = () => {
                     opacity: 0,
                     duration: 0.5,
                     ease: "power1.inOut",
+                    onComplete: () => {
+                        console.log("going swimming");
+                        window.removeEventListener('wheel', wheelListener);
+                        emit('updateSwimmer'); 
+                    }
                 });
             }
 
-            // playing + scroll down (so going again to home)
+            // play + scroll down --> GOING HOME
             if(!stopAnimation.value && delta <= 0)
             {
                 console.log("au revoir windows listener");
@@ -214,15 +219,15 @@ const addWindowListener = () => {
                 emit('updateGoUp', true); 
             }
 
-            // Stop + scroll down
+            // Stop + scroll down --> PLAY
             if(stopAnimation.value && delta <= 0 && scales[0] <= 1.7)
                 stopAnimation.value = false;
 
             const textRipples = document.querySelector("#textRipples");
             const textOpacity = window.getComputedStyle(textRipples).opacity;
 
-            // stop + dark blue + scroll down so animation again
-            console.log(delta);
+            //console.log(delta);
+            // stop + dark blue + scroll down --> GOING BLUE ORIGINAL + ANIMATION
             if(stopAnimation.value && textOpacity == 0 && delta < 0)
             {
                 // Going blue original
