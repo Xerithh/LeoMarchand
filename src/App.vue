@@ -7,6 +7,7 @@
       <AboutSection />
       <ProjectsSection />
       <YoutubeSection />
+      <QuizSection />
       <FooterSection />
     </div>
   </div>
@@ -20,6 +21,7 @@ import AboutSection from './components/AboutSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import YoutubeSection from './components/YoutubeSection.vue'
 import FooterSection from './components/FooterSection.vue'
+import QuizSection from './components/QuizSection.vue';
 import SwimAnimation from './components/ui/SwimAnimation.vue';
 
 const heroComponent = ref(null);
