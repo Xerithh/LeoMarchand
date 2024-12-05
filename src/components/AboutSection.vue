@@ -28,12 +28,14 @@
 </template>
 
 <script>
+import WaveTransition from './ui/WaveTransition.vue'
 import ActionButton from './ui/ActionButton.vue'
 
 export default {
   name: 'AboutSection',
   components: {
     ActionButton,
+    WaveTransition,
   },
 }
 </script>
