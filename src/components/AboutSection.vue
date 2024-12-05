@@ -21,7 +21,7 @@
           par sa persévérance, sa passion et son engagement à exceller dans tout ce qu’il
           entreprend.
         </p>
-        <ActionButton text="Me Contacter" href="/contact" />
+        <ActionButton text="Me Contacter" href="#top" />
       </div>
     </div>
   </section>

@@ -12,7 +12,11 @@
           Ce site présente les réalisations et les actualités de Léo Marchand. Retrouvez ses
           performances, vidéos et autres projets inspirants.
         </p>
-        <ActionButton text="Me Contacter" href="/contact" />
+
+        <ActionButton
+          text="Me Contacter"
+          href="#top"
+        />
       </div>
 
       <!-- Section Navigation -->
@@ -76,14 +80,14 @@
 </template>
 
 <script>
-import ActionButton from './ui/ActionButton.vue'
+import ActionButton from './ui/ActionButton.vue';
 
 export default {
   name: 'FooterSection',
   components: {
     ActionButton,
   },
-}
+};
 </script>
 
 <style scoped>
