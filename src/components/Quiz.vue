@@ -512,7 +512,7 @@ export default {
         paused: false,
         opacity: 0,
         onComplete: () => {
-          if (this.quiz1 == '2') {
+          if (this.quiz5 == '2') {
             this.correctAnswers++
           }
           this.answered[4] = true
@@ -549,7 +549,7 @@ export default {
         paused: false,
         opacity: 0,
         onComplete: () => {
-          if (this.quiz1 == '4') {
+          if (this.quiz3 == '4') {
             this.correctAnswers++
           }
           this.answered[2] = true
@@ -566,7 +566,7 @@ export default {
         paused: false,
         opacity: 0,
         onComplete: () => {
-          if (this.quiz1 == '2') {
+          if (this.quiz2 == '3') {
             this.correctAnswers++
           }
           this.answered[1] = true
