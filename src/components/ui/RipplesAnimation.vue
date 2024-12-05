@@ -206,7 +206,7 @@ const addWindowListener = () => {
                     onComplete: () => {
                         console.log("going swimming");
                         window.removeEventListener('wheel', wheelListener);
-                        emit('updateSwimmer'); 
+                        emit('updateSwimmer', true); 
                     }
                 });
             }

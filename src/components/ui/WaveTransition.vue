@@ -4,7 +4,7 @@
         <div id="backgroundRipples">
             <RipplesAnimation v-show="isRipplesActive" ref="ripplesAnimationRef" class="ripple" @updateGoUp="handleGoUp" @updateSwimmer="handleSwimmer" />
             <h1 class="text-5xl sm:text-6xl font-extrabold drop-shadow-xl sm:text-left uppercase hiddenText" ref="title" id="textRipples">Plongez dans mon monde</h1>
-            <SwimAnimation @swimEvent="swimmerUp" v-if="isSwimActive" />
+            <SwimAnimation @swimEvent="swimmerUp" v-if="isSwimActive" class="hidden"/>
         </div>
     </div>
 </template>

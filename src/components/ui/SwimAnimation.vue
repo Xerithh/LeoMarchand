@@ -278,7 +278,8 @@ onMounted(() => {
         }
         
         /* *** SWIMMER IS MOVING *** */
-        if(swimElement5.getBoundingClientRect().left < -initialPosition1-1200 && currentOffsetSwimmer > -1)
+        console.log(currentOffset);
+        if(currentOffset < -7000 && currentOffsetSwimmer > -1)
         {
             /*console.log("FOOOOOOOOOOOOOOOOOOOOOOOOOOOONCE");
             console.log(initialPositionImage);
