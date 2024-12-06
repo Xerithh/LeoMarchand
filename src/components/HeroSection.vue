@@ -43,9 +43,6 @@ export default {
     ActionButton,
   },
   mounted() {
-    //this.animationText();
-    //this.animateButtons();
-
     const loadingElement = this.$refs.loadingText;
     
     loadingElement.addEventListener('animationend', (event) => {
@@ -55,8 +52,6 @@ export default {
   },
   methods: {
     startHeroAnimation() {
-      //console.log('startHeroAnimation');
-      //document.querySelector('.wave').classList.add('wave-animation');
       document.querySelectorAll('.swimButton').forEach((button) => {
         button.classList.add('swiwButton-animation');
       });
@@ -117,7 +112,6 @@ export default {
 
 /* *** WAVE ANIMATION TITLE *** */
 .loading {
-  /*height: 120px;*/
   position: relative;
   top: 20px;
   line-height: 110px;
@@ -130,7 +124,6 @@ export default {
   -moz-background-clip: text;
   background-clip: text;
   color: transparent;
-  /*animation: wave-animation 1s infinite linear, loading-animation 7s linear;*/
   background-size: 200px 100px;
   background-repeat: repeat-x;
 }
@@ -159,7 +152,7 @@ export default {
 
 /* *** MEDIA QUERIES *** */
 @media (max-width: 640px) {
-  .loading {
+  /*.loading {
     line-height: normal;
   }
 
@@ -174,31 +167,10 @@ export default {
 
   .wave {
     animation: wave-animation 1s infinite linear, loading-animation 1s linear;
-  }
+  }*/
 }
 
 /* *** ELASTIC TEXT ANIMATION *** */
-/*.container {
-  margin-top: 500px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  width: 100vw;
-  max-width: 100%;
-  height: 100vh;
-  background-color: #212121;
-}
-
-h1 {
-  color: #fff;
-  font-size: 6vw;
-  max-width: 50%;
-}
-
-h1 div {
-  display:inline-block;
-}*/
-
 :deep(.letter) {
   display: inline-block;
 }

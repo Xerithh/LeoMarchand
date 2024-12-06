@@ -17,7 +17,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 10;
+    pointer-events: none; 
     /*border: 5px solid rgb(242, 255, 0);*/
 }
   
@@ -25,6 +26,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    pointer-events: none; 
     /*border: 1px solid blue;*/
 }
 
@@ -98,21 +100,6 @@ function handleSwimmer() {
   // Activer SwimAnimation et désactiver RipplesAnimation
     isSwimActive.value = true;
     isRipplesActive.value = false;
-
-    /*const swimElement = document.getElementById("swimAnimation");
-    if (swimElement) 
-    {
-        console.log("id exists");
-      // Assurez-vous que l'opacité initiale est à 0
-        swimElement.style.opacity = "0";
-    }*/
-  /*onMounted(() => {
-    gsap.fromTo(
-      "#swimAnimation", // Sélecteur du composant
-      { opacity: 0 },   // État initial
-      { opacity: 1, duration: 10 } // État final avec durée
-    );
-  });*/
 }
 
 function swimmerUp() {
@@ -172,16 +159,14 @@ onMounted(() => {
     const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // L'élément est visible, appeler la fonction
         onTitleVisible();
-        observer.unobserve(entry.target); // Arrêter l'observation une fois l'élément visible
+        observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.5 // Déclenche la fonction quand l'élément est visible à 50%
+    threshold: 0.5
   });
 
-  // Observer l'élément <h1>
   if (title.value) {
     observer.observe(title.value);
   }
@@ -442,13 +427,6 @@ function resizeCanvas() {
 
     canvas.value.width = vw * resolution;
     canvas.value.height = vh * resolution;
-
-    //canvas.value.style.width = `${vw*0.985}px`;
-    //canvas.value.style.height = `${vh}px`;
-
-    /*const backgroundRect = document.querySelector(".background").getBoundingClientRect();
-    console.log(backgroundRect.width);
-    console.log()*/
 
     context.scale(resolution, resolution);
 }

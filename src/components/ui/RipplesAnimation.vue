@@ -205,8 +205,8 @@ const addWindowListener = () => {
                     ease: "power1.inOut",
                     onComplete: () => {
                         console.log("going swimming");
-                        window.removeEventListener('wheel', wheelListener);
-                        emit('updateSwimmer', true); 
+                    window.removeEventListener('wheel', wheelListener);
+                    emit('updateSwimmer', true); 
                     }
                 });
             }

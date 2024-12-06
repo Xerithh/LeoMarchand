@@ -177,17 +177,6 @@ const swimmerAnim = () => {
         });
 }
 
-
-/*gsap.fromTo(
-        "#swimAnimation",
-        { opacity: 0 },
-        { 
-            opacity: 1, 
-            duration: 10, 
-            ease: "none"
-        }
-    );*/
-
 onMounted(() => {
     /* *** OBSERVER *** */
     observerSwim = new IntersectionObserver((entries) => {
@@ -209,19 +198,17 @@ onMounted(() => {
     let i = 0;
     let j = 0;
 
-    // Paramètres de style initial
     gsap.set('.line', { attr: { 'stroke': '#6ec3fe', 'stroke-width': 12, 'stroke-linecap': 'round' } });  // Définir couleur initiale
     gsap.set('.line2', { attr: { 'stroke-width': 18 }, opacity: 0.4 });
     gsap.set('.line3', { attr: { 'stroke-width': 27 }, opacity: 0.15 });
 
     [].forEach.call(document.getElementsByClassName('line'), (el) => {
-        // Utilisation de stroke-dasharray et stroke-dashoffset pour l'animation
         const length = el.getTotalLength();
         gsap.set(el, { strokeDasharray: length, strokeDashoffset: -length });
 
         gsap.timeline({ defaults: { duration: 10 }, repeat: -1, repeatDelay: (27 - i) / 50 })
-        .to(el, { strokeDashoffset: 0, ease: 'sine.in' }, i / 50 - i*0.5)  // Dessine la ligne (de gauche à droite)
-        .to(el, { strokeDashoffset: length, ease: 'sine.out' }, 1 + i / 50)  // Efface la ligne (de gauche à droite)
+        .to(el, { strokeDashoffset: 0, ease: 'sine.in' }, i / 50 - i*0.5)
+        .to(el, { strokeDashoffset: length, ease: 'sine.out' }, 1 + i / 50)
         .progress(1 / 20);
 
         j++;
@@ -248,7 +235,7 @@ onMounted(() => {
                 window.removeEventListener('wheel', changeImageOnScroll);
                 if (observerSVG) {
                     console.log("observerSVG is disconnected");
-                    observerSVG.disconnect();  // Déconnecte l'observateur pour qu'il ne suive plus l'élément
+                    observerSVG.disconnect(); 
                 }
 
                 if (observerSwim) {
@@ -333,7 +320,7 @@ onUnmounted(() => {
   }
 
   .svg-container {
-    position: absolute; /* Positionner par rapport à la fenêtre */
+    position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
@@ -376,7 +363,7 @@ onUnmounted(() => {
     /* *** WAVY TITLES *** */
     .title-swim {
         position: absolute;
-        display: flex; /* Utilisation de flexbox pour afficher les éléments horizontalement */
+        display: flex;
         flex-direction: row; 
         top: -75%;
     }
