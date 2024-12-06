@@ -298,7 +298,7 @@ onMounted(() => {
             if (ripplesAnimationRef.value) {
                 setTimeout(() => {
                     ripplesAnimationRef.value.addWindowListener();
-                }, 400);
+                }, 600);
             }
             resetAnimations(true);
             //animGoUp = true;
