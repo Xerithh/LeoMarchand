@@ -77,6 +77,17 @@ function svgContainerToScreen() {
     setTimeout(() => {
         document.body.style.overflow = 'hidden';
     }, 100);
+
+    if (window.location.hash === '#top') {
+        console.log("tout en haut");
+        const waveComponent = document.getElementById('waveComponent');
+        if (waveComponent) {
+            document.body.style.overflow = 'auto';
+            waveComponent.classList.add('hidden');
+            console.log(document.body.style.overflow);
+        }
+
+    }
 }
 
 function yourFunction() {

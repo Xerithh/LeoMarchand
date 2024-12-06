@@ -26,6 +26,7 @@ import SwimAnimation from './components/ui/SwimAnimation.vue';
 
 const heroComponent = ref(null);
 const isLargeScreen = ref(false);
+const isNoTop = ref(true);
 
 function triggerHeroAnimation(data) {
   if (heroComponent.value) {
@@ -38,12 +39,26 @@ function triggerHeroAnimation(data) {
 }
 
 const checkScreenSize = () => {
-  isLargeScreen.value = window.innerWidth >= 1024; // Tailwind "lg" (1024px) et plus
+  isLargeScreen.value = window.innerWidth >= 1024;
 };
 
 onMounted(() => {
   checkScreenSize();
-  window.addEventListener('resize', checkScreenSize); // Ecoute les changements de taille
+  window.addEventListener('resize', checkScreenSize); 
+  /*window.addEventListener('hashchange', function() {
+    if (window.location.hash === '#top') {
+      console.log("Le lien #top a été activé !");
+      isNoTop = ref(false);
+      const waveComponent = document.getElementById('waveComponent');
+      if (waveComponent) {
+        waveComponent.classList.add('hidden');
+      }
+      const ripples = document.getElementById('backgroundRipples');
+      if (ripples) {
+        ripples.classList.add('hidden');
+      }
+    }
+  });*/
 });
 
 onBeforeUnmount(() => {
