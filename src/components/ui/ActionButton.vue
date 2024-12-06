@@ -2,7 +2,7 @@
   <button
     @click="handleClick"
     :class="[
-      'swimButton relative group cursor-pointer text-sky-50 overflow-hidden h-12 w-48 rounded-md bg-sky-800 p-2 flex justify-center items-center font-extrabold',
+      'swimButton relative group cursor-pointer text-sky-50 overflow-hidden h-12 w-48 rounded-md bg-sky-800 p-2 flex justify-center items-center font-medium',
       customClass,
     ]"
   >

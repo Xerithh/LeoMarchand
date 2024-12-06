@@ -94,6 +94,18 @@ function startHeroAnimation() {
 function handleGoUp(value) {
     animGoUp = value;
     //console.log('animGoUp updated:', animGoUp);
+    window.addEventListener("wheel", (event) => {
+        //console.log("WHEELING IN WAVE");
+        if (event.deltaY > 0 && !animGoUp) {
+            //console.log("WHEELING IN UP");
+            // Défilement vers le bas (scroll down)
+            parallaxAnimationUp.play();
+        } else if (event.deltaY < 0 && animGoUp) {
+            //console.log("WHEELING IN DOWN");
+            // Défilement vers le haut (scroll up)
+            parallaxAnimationDown.play();
+        }
+    });
 }
 
 function handleSwimmer() {
@@ -249,20 +261,18 @@ onMounted(() => {
         },
         onComplete: () => {
             document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-            window.addEventListener("wheel", (event) => {
-                //console.log("WHEELING IN WAVE");
-                if (event.deltaY > 0 && !animGoUp) {
-                    //console.log("WHEELING IN UP");
-                    // Défilement vers le bas (scroll down)
-                    parallaxAnimationUp.play();
-                } else if (event.deltaY < 0 && animGoUp) {
-                    //console.log("WHEELING IN DOWN");
-                    // Défilement vers le haut (scroll up)
-                    parallaxAnimationDown.play();
-                }
-            });
-        }, 500);
+                window.addEventListener("wheel", (event) => {
+                    //console.log("WHEELING IN WAVE");
+                    if (event.deltaY > 0 && !animGoUp) {
+                        //console.log("WHEELING IN UP");
+                        // Défilement vers le bas (scroll down)
+                        parallaxAnimationUp.play();
+                    } else if (event.deltaY < 0 && animGoUp) {
+                        //console.log("WHEELING IN DOWN");
+                        // Défilement vers le haut (scroll up)
+                        parallaxAnimationDown.play();
+                    }
+                });
         },
     });
 
@@ -286,7 +296,9 @@ onMounted(() => {
         },
         onComplete: () => {
             if (ripplesAnimationRef.value) {
-                ripplesAnimationRef.value.addWindowListener();
+                setTimeout(() => {
+                    ripplesAnimationRef.value.addWindowListener();
+                }, 400);
             }
             resetAnimations(true);
             //animGoUp = true;
