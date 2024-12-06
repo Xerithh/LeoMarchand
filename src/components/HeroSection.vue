@@ -27,20 +27,35 @@
           <p class="swimButton z-10">Découvrir mon parcours</p>
         </button>
 
-        <ActionButton text="Me Contacter" href="/contact" />
+        <ActionButton
+          text="Me Contacter"
+          :onClick="toggleForm"
+        />
       </div>
     </div>
+
+    <!-- Formulaire (affiché lorsque `showForm` est true) -->
+    <transition name="fade">
+      <div
+        v-if="showForm"
+        class="absolute top-0 left-0 w-3/5 h-1/1 flex items-center justify-center bg-white bg-opacity-0 m-10"
+      >
+        <FormSection />
+      </div>
+    </transition>
   </section>
 </template>
 
 <script>
 import ActionButton from './ui/ActionButton.vue'
+import FormSection from './FormSection.vue';
 import { gsap } from 'gsap'
 
 export default {
   name: 'HeroSection',
   components: {
     ActionButton,
+    FormSection,
   },
   mounted() {
     const loadingElement = this.$refs.loadingText;
@@ -87,8 +102,17 @@ export default {
         ease: "elastic(1.2, 0.5)",
       });
     },
+    toggleForm() {
+      this.showForm = !this.showForm;
+    },
   },
-}
+  data() {
+    return {
+      showForm: false,
+    };
+  },
+ 
+};
 </script>
 
 <style scoped>
@@ -109,6 +133,7 @@ export default {
   position: relative;
   z-index: 1;
 }
+
 
 /* *** WAVE ANIMATION TITLE *** */
 .loading {
@@ -227,5 +252,23 @@ export default {
 
 .hidden-text1, .hidden-text2 {
   opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+@media screen and (max-width:1000px){
+  .hero{
+    flex-direction: column;
+  }
+  .form-section{
+    width: 300px;
+  }
 }
 </style>
